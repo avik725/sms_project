@@ -8,6 +8,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
+
 
 class AdminLoginController extends Controller
 {
@@ -26,9 +28,15 @@ class AdminLoginController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
-
-        return redirect()->intended(route('admin/dashboard')); // Correct route name
+        if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
+            Log::debug('Admin logged in successfully');
+            $request->session()->regenerate();
+            return redirect()->intended(route('admin/dashboard'));
+        } else {
+            Log::debug('Admin login failed');
+            return back()->withErrors(['email' => 'The provided credentials do not match our records.']);
+        }
+        
     }
 
     /**
