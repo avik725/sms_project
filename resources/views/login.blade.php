@@ -24,7 +24,7 @@
             The Best Thing You Will Need <br />
             <span style="color: #4351cd;">For Your Business</span>
           </h2>
-          <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+          <p class="mb-4 opacity-70" style="color: hsl(218deg 45.38% 88.09%)">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit.
             Temporibus, expedita iusto veniam atque, magni tempora mollitia
             dolorum consequatur nulla, neque debitis eos reprehenderit quasi
@@ -56,6 +56,7 @@
                 <!-- Submit button -->
                 <button type="submit" class="btn btn-primary btn-block mb-4">
                   Log In
+                  <i class="ti ti-login-2"></i>
                 </button>
               </form>
             </div>

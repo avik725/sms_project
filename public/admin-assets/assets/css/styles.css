@@ -4881,7 +4881,7 @@ textarea.form-control-lg {
   --bs-card-border-width: 0px;
   --bs-card-border-color: #ebf1f6;
   --bs-card-border-radius: 7px;
-  --bs-card-box-shadow: rgba(145, 158, 171, 0.5) 0px 0px 13px 0px, rgba(145, 158, 171, 0.1) 0px 12px 24px -4px;
+  --bs-card-box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 13px 0px, rgba(145, 158, 171, 0.1) 0px 12px 24px -4px;
   --bs-card-inner-border-radius: 7px;
   --bs-card-cap-padding-y: 15px;
   --bs-card-cap-padding-x: 30px;
