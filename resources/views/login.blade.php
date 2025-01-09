@@ -19,10 +19,10 @@
     <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
       <div class="row gx-lg-5 align-items-center mb-5">
         <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-          <h1 class="mt-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">The</h1>
+          <h1 class="mt-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">{{$project_data->project_name}}</h1>
           <h2 class="my-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
             The Best Thing You Will Need <br />
-            <span style="color: hsl(218, 81%, 75%)">For Your Business</span>
+            <span style="color: #4351cd;">For Your Business</span>
           </h2>
           <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit.

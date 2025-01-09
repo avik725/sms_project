@@ -5,21 +5,21 @@ section{
 .background-radial-gradient {
 background-color: hsl(218, 41%, 15%);
 background-image: radial-gradient(
-    650px circle at 0% 0%,
-    hsl(218, 41%, 35%) 15%,
-    hsl(218, 41%, 30%) 35%,
-    hsl(218, 41%, 20%) 75%,
-    hsl(218, 41%, 19%) 80%,
-    transparent 100%
-  ),
-  radial-gradient(
-    1250px circle at 100% 100%,
-    hsl(218, 41%, 45%) 15%,
-    hsl(218, 41%, 30%) 35%,
-    hsl(218, 41%, 20%) 75%,
-    hsl(218, 41%, 19%) 80%,
-    transparent 100%
-  );
+      1163px circle at 0% 0%,
+      hsl(218, 41%, 75%) 15%,
+      hsl(218, 41%, 65%) 35%,
+      hsl(218, 41%, 55%) 75%,
+      hsl(218, 41%, 50%) 80%,
+      transparent 100%
+    ),
+    radial-gradient(
+      909px circle at 100% 100%,
+      hsl(218, 41%, 80%) 15%,
+      hsl(218, 41%, 70%) 35%,
+      hsl(218, 41%, 60%) 75%,
+      hsl(218, 41%, 55%) 80%,
+      transparent 100%
+    );
 }
 
 #radius-shape-1 {
@@ -27,7 +27,7 @@ height: 220px;
 width: 220px;
 top: -60px;
 left: -130px;
-background: radial-gradient(#44006b, #ad1fff);
+background: radial-gradient(hsl(234.41deg 46.79% 58.18%), hsl(233.65deg 64.1% 50.37%));
 overflow: hidden;
 }
 
@@ -37,7 +37,7 @@ bottom: -60px;
 right: -110px;
 width: 300px;
 height: 300px;
-background: radial-gradient(#44006b, #ad1fff);
+background: radial-gradient(hsl(234.41deg 46.79% 58.18%), hsl(233.65deg 64.1% 50.37%));
 overflow: hidden;
 }
 
