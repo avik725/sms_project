@@ -11,6 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
+  <link rel="icon" type="image/x-icon" href="{{asset('assets/images/favicon.png')}}">
 </head>
 
 <body>
@@ -19,7 +20,8 @@
     <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
       <div class="row gx-lg-5 align-items-center mb-5">
         <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-          <h1 class="mt-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">{{$project_data->project_name}} Software</h1>
+          <h1 class="mt-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">{{$project_data->project_name}}
+            Software</h1>
           <h2 class="my-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
             The Best Thing You Will Need <br />
             <span style="color: #4351cd;">For Your Business</span>
