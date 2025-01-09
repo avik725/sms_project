@@ -4,7 +4,7 @@
   <div>
     <div class="brand-logo d-flex align-items-center justify-content-between">
       <a href="{{route('admin/dashboard')}}" class="text-nowrap logo-img">
-       <h1 class="fw-bolder">{{$project_data->project_name}}</h1>
+       <img src="{{asset($project_data->project_logo)}}" alt="Logo" class="w-100 h-100">
       </a>
       <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
         <i class="ti ti-x fs-8"></i>

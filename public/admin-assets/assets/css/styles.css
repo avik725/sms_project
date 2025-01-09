@@ -15427,7 +15427,7 @@ textarea.form-control-lg {
   height: 100%;
   z-index: 11;
   border-right: 1px solid rgb(229, 234, 239);
-  box-shadow: rgba(145, 158, 171, 0.5) 0px 0px 13px 0px, rgba(145, 158, 171, 0.1) 0px 12px 24px -4px;
+  box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 13px 0px, rgba(145, 158, 171, 0.1) 0px 12px 24px -4px;
 }
 .left-sidebar .scroll-sidebar {
   overflow-y: auto;
@@ -15518,7 +15518,7 @@ textarea.form-control-lg {
   width: 100%;
   background: #fff;
   padding: 0 25px;
-  box-shadow: rgba(145, 158, 171, 0.5) 0px 0px 13px 0px, rgba(145, 158, 171, 0.1) 0px 12px 24px -4px;
+  box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 13px 0px, rgba(145, 158, 171, 0.1) 0px 12px 24px -4px;
 }
 .app-header .container-fluid, .app-header .container-sm, .app-header .container-md, .app-header .container-lg, .app-header .container-xl, .app-header .container-xxl {
   max-width: 1200px;
