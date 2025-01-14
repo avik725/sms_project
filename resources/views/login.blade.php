@@ -20,9 +20,12 @@
     <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
       <div class="row gx-lg-5 align-items-center mb-5">
         <div class="col-lg-6 col-md-12 mb-5 mb-lg-0" style="z-index: 10">
-          <h1 class="mt-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)"><img
-              src="{{asset('assets/images/favicon.png')}}" alt="">{{$project_data->project_name}}
-            Software</h1>
+          <div class="d-flex align-items-center justify-content-center">
+            <img src="{{asset($project_data->login_bg)}}" style="height:90px; width:90px;" alt="">
+            <h1 class="m-0 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+              {{$project_data->project_name}}
+              Software</h1>
+          </div>
           <h2 class="my-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
             The Best Thing You Will Need <br />
             <span style="color: #4351cd;">For Your Business</span>
