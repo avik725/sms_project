@@ -19,8 +19,9 @@
   <section class="background-radial-gradient overflow-hidden align-content-center">
     <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
       <div class="row gx-lg-5 align-items-center mb-5">
-        <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-          <h1 class="mt-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">{{$project_data->project_name}}
+        <div class="col-lg-6 col-md-12 mb-5 mb-lg-0" style="z-index: 10">
+          <h1 class="mt-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)"><img
+              src="{{asset('assets/images/favicon.png')}}" alt="">{{$project_data->project_name}}
             Software</h1>
           <h2 class="my-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
             The Best Thing You Will Need <br />
@@ -34,7 +35,7 @@
           </p>
         </div>
 
-        <div class="col-lg-4 offset-lg-1 mb-5 mb-lg-0 position-relative">
+        <div class="col-lg-4 col-md-8 offset-lg-1 offset-md-2 mb-5 mb-lg-0 position-relative">
           <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
           <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 

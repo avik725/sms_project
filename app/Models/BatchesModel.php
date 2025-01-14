@@ -33,7 +33,7 @@ class BatchesModel extends Model
         return $this->belongsTo(SuppliersModel::class, 'supplier_id', 'suppliers_id');
     }
 
-    public function getBuyingPriceAttribute()
+    public function getBuyingPrice()
     {
         return $this->item->buying_price; // Assume 'price' in the items table is the buying price
     }

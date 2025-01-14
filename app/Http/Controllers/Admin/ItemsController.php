@@ -7,9 +7,11 @@ use App\Models\CategoriesModel;
 use App\Models\ItemsModel;
 use App\Models\SubcategoriesModel;
 use App\Models\Unit;
+use Error;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class ItemsController extends Controller
 {
@@ -20,7 +22,7 @@ class ItemsController extends Controller
         $units = Unit::all();
 
         if ($request->ajax()) {
-            $data = ItemsModel::with(['category', 'subcategory', 'unit'])->get();
+            $data = ItemsModel::with(['category', 'subcategory', 'unit'])->latest()->get();
 
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -61,10 +63,16 @@ class ItemsController extends Controller
             'selling_price' => 'required|numeric|min:0',
         ]);
 
-        ItemsModel::create($request->all());
+        $item = ItemsModel::create($request->all());
 
-        return redirect()->route('admin/items')->with('success', 'Item Added Successfully!');
+        // Check if item is created successfully
+        if ($item) {
+            return redirect()->route('admin/items')->with('success', 'Item Added Successfully!');
+        } else {
+            return redirect()->route('admin/items')->with('error', 'Item Not Added In the List');
+        }
     }
+
 
     public function update(Request $request, $items_id)
     {

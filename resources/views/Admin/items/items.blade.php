@@ -120,6 +120,7 @@
                             <form method="POST" class="p-4">
                                 @csrf
 
+                                <h4 class="card-title fw-semibold mb-4">Edit Existing Item</h4>
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
                                         <label for="item" class="form-label">Item Name</label><span>*</span>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\InventoryTracking;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class InventoryController extends Controller
 {
@@ -43,8 +42,19 @@ class InventoryController extends Controller
     public function destroy($inventory_tracking_id)
     {
         $inventory = InventoryTracking::findOrFail($inventory_tracking_id);
+        $inventory_batch = InventoryTracking::with(['batch'])->where('inventory_tracking_id',$inventory_tracking_id)->first();
+
+        if($inventory_batch->change_type === 'restock'){
+            $inventory_batch->batch->quantity -= $inventory_batch->change_quantity;
+            $inventory_batch->batch->save();
+        }
+        else if($inventory_batch->change_type === 'sale'){
+            $inventory_batch->batch->quantity += $inventory_batch->change_quantity;
+            $inventory_batch->batch->save();
+        }
+        
         $inventory->delete();
 
-        return redirect()->route('transactions')->with('success','Transaction Deleted Successfully...!');
+        return redirect()->route('admin/transactions')->with('success','Transaction Deleted Successfully...!');
     }
 }

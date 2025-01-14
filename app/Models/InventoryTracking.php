@@ -44,14 +44,19 @@ class InventoryTracking extends Model
 
         $currentStock = $totalRestocked - $totalSold;
 
-        // Adjust stock based on the current operation
         if ($changeType === 'restock') {
             return $currentStock + $changeQuantity;
         } elseif ($changeType === 'sale') {
             return $currentStock - $changeQuantity;
         }
 
-        // If the type is unknown, return the current stock as-is
         return $currentStock;
+    }
+
+    public static function getRemainingStock($itemId)
+    {
+        $currentStock = self::where('item_id',$itemId)->latest()->first('remaining_stock');
+
+        return $currentStock->remaining_stock;
     }
 }

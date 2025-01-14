@@ -64,7 +64,7 @@
                   <div class="col-lg-6 mb-3">
                     <div class="row">
                       <div class="col-lg-12">
-                        <label for="login_bg" class="form-label">Login Page Background Image</label>
+                        <label for="login_bg" class="form-label">Project Icon</label>
                         <input class="form-control" type="file" id="login_bg" name="login_bg" autofocus value="" />
                         @error('login_bg')
               <div class="text-danger">{{$message}}</div>

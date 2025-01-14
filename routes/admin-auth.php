@@ -2,14 +2,17 @@
 
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\Auth\RegisteredAdminController;
+use App\Http\Controllers\Admin\BatchController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\ItemsController;
 use App\Http\Controllers\Admin\PurchasesController;
+use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SuppliersController;
 use App\Http\Controllers\Admin\CategoriesController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredAdminController::class, 'create'])
@@ -24,8 +27,13 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin/')->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'Dashboard'])->name('dashboard'); 
     Route::post('logout', [AdminLoginController::class, 'destroy'])->name('logout'); 
+});
+
+Route::prefix('admin')->controller(DashboardController::class,)->middleware(['auth','verified'])->name('admin/')->group(function(){
+    Route::get('dashboard','Dashboard')->name('dashboard');
+    Route::get('get-stock-levels/{item_id}','getStockLevels')->name('get-stock-levels');
+    Route::get('get-no-of-items/{category_id}','getNoOfItems')->name('get-no-of-items');
 });
 
 Route::prefix('admin')->controller(SettingsController::class,)->middleware(['auth','verified'])->name('admin/')->group(function(){
@@ -63,12 +71,46 @@ Route::prefix('admin')->controller(ItemsController::class,)->middleware(['auth',
 Route::prefix('admin')->controller(InventoryController::class,)->middleware(['auth','verified'])->name('admin/')->group(function(){
     Route::get('transactions','index')->name('transactions');
     Route::post('transactions-store','store')->name('transactions-store');
-    Route::get('destroy-transactions','destroy')->name('destroy-transactions');
+    Route::get('destroy-transactions/{inventory_tracking_id}','destroy')->name('destroy-transactions');
 });
 
 Route::prefix('admin')->controller(PurchasesController::class,)->middleware(['auth','verified'])->name('admin/')->group(function(){
     Route::get('purchases','index')->name('purchases');
     Route::post('store-purchases','store')->name('store-purchases');
+    Route::post('update-purchases/{purchases_id}','update')->name('update-purchases');
     Route::get('fulfill-purchase/{purchases_id}','fulfill')->name('fulfill-purchase');
     Route::get('destroy-purchase/{purchases_id}','destroy')->name('destroy-purchase');
+});
+
+Route::prefix('admin')->controller(SalesController::class,)->middleware(['auth','verified'])->name('admin/')->group(function(){
+    Route::get('sales','index')->name('sales');
+    Route::post('store-sales','store')->name('store-sales');
+    Route::post('update-sales/{sale_id}','update')->name('update-sales');
+    Route::get('getItemDetails','getItemDetails')->name('getItemDetails');
+    Route::get('get-sale-details/{sale_id}','getSaleDetails')->name('get-sale-details');
+    Route::get('confirm-sale/{sale_id}','confirm')->name('confirm-sale');
+    Route::get('destroy-sale/{sale_id}','destroy')->name('destroy-sale');
+});
+
+Route::prefix('admin')->controller(BatchController::class,)->middleware(['auth','verified'])->name('admin/')->group(function(){
+    Route::get('batch','index')->name('batch');
+});
+
+
+// Dashboard Apexchart Data Fetch Code
+
+Route::get('/api/category-sales-restocks', function () {
+    $data = DB::table('categories')
+        ->join('items', 'categories.category_id', '=', 'items.category_id')
+        ->leftJoin('sales', 'items.items_id', '=', 'sales.item_id')
+        ->leftJoin('purchases', 'items.items_id', '=', 'purchases.item_id')
+        ->select(
+            'categories.category as category',
+            DB::raw('SUM(sales.quantity) as sales'),
+            DB::raw('SUM(purchases.quantity) as restocks')
+        )
+        ->groupBy('categories.category_id', 'categories.category')
+        ->get();
+
+    return response()->json($data);
 });

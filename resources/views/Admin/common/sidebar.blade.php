@@ -4,7 +4,7 @@
   <div>
     <div class="brand-logo d-flex align-items-center justify-content-between">
       <a href="{{route('admin/dashboard')}}" class="text-nowrap logo-img">
-       <img src="{{asset($project_data->project_logo)}}" alt="Logo" class="w-100 h-100">
+        <img src="{{asset($project_data->project_logo)}}" alt="Logo" class="w-100 h-100">
       </a>
       <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
         <i class="ti ti-x fs-8"></i>
@@ -27,7 +27,7 @@
         </li>
         <li class="nav-small-cap">
           <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-          <span class="hide-menu">UI COMPONENTS</span>
+          <span class="hide-menu">Modules</span>
         </li>
         <li class="sidebar-item">
           <a class="sidebar-link" href="{{route('admin/purchases')}}" aria-expanded="false">
@@ -38,11 +38,11 @@
           </a>
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+          <a class="sidebar-link" href="{{route('admin/sales')}}" aria-expanded="false">
             <span>
-              <i class="ti ti-alert-circle"></i>
+              <i class="ti ti-basket-up"></i>
             </span>
-            <span class="hide-menu">Alerts</span>
+            <span class="hide-menu">Sales Orders</span>
           </a>
         </li>
         <li class="sidebar-item">
@@ -51,6 +51,14 @@
               <i class="ti ti-directions"></i>
             </span>
             <span class="hide-menu">Transactions</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="{{route('admin/batch')}}" aria-expanded="false">
+            <span>
+              <i class="ti ti-layers-intersect"></i>
+            </span>
+            <span class="hide-menu">Batches</span>
           </a>
         </li>
         <li class="nav-small-cap">
@@ -104,34 +112,6 @@
               <span class="hide-menu">Logout</span>
             </a>
           </form>
-        </li>
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-            <span>
-              <i class="ti ti-user-plus"></i>
-            </span>
-            <span class="hide-menu">Register</span>
-          </a>
-        </li>
-        <li class="nav-small-cap">
-          <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-          <span class="hide-menu">EXTRA</span>
-        </li>
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-            <span>
-              <i class="ti ti-mood-happy"></i>
-            </span>
-            <span class="hide-menu">Icons</span>
-          </a>
-        </li>
-        <li class="sidebar-item">
-          <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-            <span>
-              <i class="ti ti-aperture"></i>
-            </span>
-            <span class="hide-menu">Sample Page</span>
-          </a>
         </li>
       </ul>
     </nav>

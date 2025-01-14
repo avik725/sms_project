@@ -12,6 +12,11 @@
         }
 
         .timeline-badge-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            position: relative;
             .timeline-badge {
                 width: 12px;
                 height: 12px;

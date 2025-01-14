@@ -33,3 +33,15 @@
 
 // Pages style (Required file)
 @import "./pages/dashboard1";
+
+// Selectize Boxes
+
+.selectize-input{
+    background-color: transparent !important;
+    background-image: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    &.focus{
+        box-shadow: none !important;
+    }
+}

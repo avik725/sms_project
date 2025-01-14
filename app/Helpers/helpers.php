@@ -1,5 +1,4 @@
 <?php
-/// helpers/helpers.php
 function uploadImage($file, $directory)
 {
     $filename = uniqid() . '.' . $file->getClientOriginalExtension();
