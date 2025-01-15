@@ -30,6 +30,8 @@
   });
 </script>
 
+<!-- SweetAlert PHP -->
+
 @if(Session::has('success'))
   <script type="text/javascript">
     $(document).ready(function () {
@@ -43,7 +45,7 @@
   </script>
   @php
   Session::forget('success');
-  @endphp
+@endphp
 @endif
 @if(Session::has('error'))
   <script type="text/javascript">
@@ -58,7 +60,7 @@
   </script>
   @php
   Session::forget('error');
-  @endphp
+@endphp
 @endif
 
 <!-- Stock levels Fetch  -->
@@ -118,6 +120,7 @@
   });
 </script>
 
+<!-- No Of Items Fetch -->
 <script>
   var getNoOfItemsUrl =
     "{{ route('admin/get-no-of-items', ['category_id' => ':categoryId']) }}";
@@ -169,4 +172,141 @@
       stockCard.find("#subcategories_names").text("NA");
     }
   });
+</script>
+
+<!-- Dashboard Chart Initialize script  -->
+<script>
+  function getLastFourMonths() {
+    const currentDate = new Date();
+    const months = [];
+    for (let i = 0; i < 4; i++) {
+      const month = currentDate.getMonth() - i;
+      const year = currentDate.getFullYear() + Math.floor(month / 12);
+      const adjustedMonth = ((month + 12) % 12) + 1; // 1-indexed month
+      months.push({
+        year,
+        month: adjustedMonth.toString().padStart(2, "0"),
+      });
+    }
+    return months;
+  }
+
+  function populateMonthFilter() {
+    const monthFilter = document.getElementById("monthFilter");
+    monthFilter.innerHTML = "";
+
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = "Select Month";
+    defaultOption.selected = true;
+    monthFilter.appendChild(defaultOption);
+
+    const months = getLastFourMonths();
+    months.forEach(({ year, month }) => {
+      const date = new Date(year, month - 1);
+      const monthName = date.toLocaleString("default", { month: "long" });
+      const option = document.createElement("option");
+      option.value = `${year}-${month}`;
+      option.textContent = `${monthName} ${year}`;
+      monthFilter.appendChild(option);
+    });
+  }
+
+  async function fetchAndRenderChart(monthYear = "") {
+    try {
+      const response = await fetch(
+        `/api/category-sales-restocks?monthYear=${monthYear}`
+      );
+      const data = await response.json();
+
+      const categories = data.map((item) => item.category);
+      const sales = data.map((item) => item.sales || 0);
+      const restocks = data.map((item) => item.restocks || 0);
+
+      const chartConfig = {
+        series: [
+          { name: "Sales", data: sales },
+          { name: "Restocks", data: restocks },
+        ],
+        chart: {
+          type: "bar",
+          height: 345,
+          offsetX: -15,
+          toolbar: { show: true },
+          foreColor: "#adb0bb",
+          fontFamily: "inherit",
+          sparkline: { enabled: false },
+        },
+        colors: ["#5D87FF", "#49BEFF"],
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "35%",
+            borderRadius: [6],
+            borderRadiusApplication: "end",
+            borderRadiusWhenStacked: "all",
+          },
+        },
+        xaxis: {
+          categories: categories,
+          labels: {
+            style: {
+              cssClass: "grey--text lighten-2--text fill-color",
+            },
+          },
+        },
+        yaxis: {
+          labels: { formatter: (value) => value.toFixed(0) },
+        },
+        tooltip: {
+          y: { formatter: (value) => `${value} units` },
+        },
+        legend: {
+          show: true,
+          position: "bottom",
+          markers: {
+            shape: "circle",
+            width: 12,
+            height: 12,
+          },
+          itemMargin: {
+            horizontal: 10,
+            vertical: 5,
+          },
+        },
+        dataLabels: { enabled: false },
+        stroke: { show: true, width: 3, colors: ["transparent"] },
+        responsive: [
+          {
+            breakpoint: 600,
+            options: {
+              plotOptions: {
+                bar: { borderRadius: 3 },
+              },
+            },
+          },
+        ],
+      };
+
+      const chartContainer = document.querySelector("#chart");
+      chartContainer.innerHTML = ""; // Clear the existing chart
+      const chart = new ApexCharts(chartContainer, chartConfig);
+      chart.render();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    populateMonthFilter();
+    fetchAndRenderChart();
+
+    document
+      .getElementById("monthFilter")
+      .addEventListener("change", (event) => {
+        const selectedMonthYear = event.target.value;
+        fetchAndRenderChart(selectedMonthYear);
+      });
+  });
+
 </script>

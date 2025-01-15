@@ -17,19 +17,25 @@
         @include('Admin/common/header')
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-8 col-md-12 d-flex align-items-strech">
+            <div class="col-lg-8 col-md-12 d-flex align-items-stretch">
               <div class="card w-100">
                 <div class="card-body">
-                  <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                  <div class="d-sm-flex d-block align-items-center justify-content-between mb-3">
                     <div class="mb-3 mb-sm-0">
-                      <h5 class="card-title fw-semibold">Categories Overiew</h5>
-                      <span class="fw-normal">Category wise Restock And Sales</span>
+                      <h5 class="card-title fw-semibold">Categories Overview</h5>
+                      <span class="fw-normal">Category-wise Restock And Sales</span>
+                    </div>
+                    <div>
+                      <select id="monthFilter" class="form-select" style="width: 200px;">
+                        <option value="">Select Month</option>
+                      </select>
                     </div>
                   </div>
                   <div id="chart"></div>
                 </div>
               </div>
             </div>
+
             <div class="col-lg-4 col-md-12 selectize-cards">
               <div class="row">
                 <div class="col-lg-12 col-md-6">
@@ -86,112 +92,112 @@
                               <span class="fs-2" id="subcategories_names">Subcategories</span>
                             </div>
                           </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="d-flex justify-content-end">
-                          <div
-                            class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-report-search fs-6"></i>
+                        </div>
+                        <div class="col-3">
+                          <div class="d-flex justify-content-end">
+                            <div
+                              class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
+                              <i class="ti ti-report-search fs-6"></i>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    <div id="earning"></div>
                   </div>
-                  <div id="earning"></div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 d-flex align-items-stretch">
-            <div class="card w-100 overflow-hidden">
-              <div class="card-body p-4">
-                <div class="mb-4">
-                  <h5 class="card-title fw-semibold mb-lg-4">Product Expiry Alerts</h5>
-                </div>
-                <ul class="timeline-widget mb-0 position-relative mb-n5 pt-lg-2">
-                  @foreach ($batches as $batch)
+          <div class="row">
+            <div class="col-lg-4 d-flex align-items-stretch">
+              <div class="card w-100 overflow-hidden">
+                <div class="card-body p-4">
+                  <div class="mb-4">
+                    <h5 class="card-title fw-semibold mb-lg-4">Product Expiry Alerts</h5>
+                  </div>
+                  <ul class="timeline-widget mb-0 position-relative mb-n5 pt-lg-2">
+                    @foreach ($batches as $batch)
             <li class="timeline-item d-flex position-relative overflow-hidden mt-3">
-            <div class="row">
+              <div class="row">
               <div class="col-lg-3 col-md-3 col-3">
-              <div class="timeline-time text-dark flex-shrink-0 text-end ps-4">
+                <div class="timeline-time text-dark flex-shrink-0 text-end ps-4">
                 {{date('d M Y', strtotime($batch->expiry_date))}}
-              </div>
+                </div>
               </div>
               <div class="col-lg-2 col-md-2 col-2">
-              <div class="timeline-badge-wrap d-flex flex-column align-items-center">
+                <div class="timeline-badge-wrap d-flex flex-column align-items-center">
                 <span class="timeline-badge border-2 border border-warning flex-shrink-0 my-8"></span>
                 <span class="timeline-badge-border d-block flex-shrink-0"></span>
-              </div>
+                </div>
               </div>
               <div class="col-lg-7 col-md-7 col-7">
-              <div class="timeline-desc fs-3 text-dark mt-n1 p-0">{{$batch->quantity}}
+                <div class="timeline-desc fs-3 text-dark mt-n1 p-0">{{$batch->quantity}}
                 {{$batch->item->unit->name}}s
                 of <span class="fw-semibold">{{$batch->item->item}}</span><br><span
-                class="text-primary">#Batch Id :{{$batch->batch_id}}</span>
+                  class="text-primary">#Batch Id :{{$batch->batch_id}}</span>
+                </div>
               </div>
               </div>
-            </div>
             </li>
           @endforeach
-                </ul>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-8 d-flex align-items-stretch">
-            <div class="card w-100">
-              <div class="card-body p-4">
-                <h5 class="card-title fw-semibold mb-4">Recent Transactions</h5>
-                <div class="table-responsive">
-                  <table class="table text-nowrap mb-0 align-middle">
-                    <thead class="text-dark fs-4">
-                      <tr>
-                        <th class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0">Batch Id</h6>
-                        </th>
-                        <th class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0">Product</h6>
-                        </th>
-                        <th class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0">Type</h6>
-                        </th>
-                        <th class="border-bottom-0">
-                          <h6 class="fw-semibold mb-0">Quantity</h6>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach ($transaction as $transactions)
+            <div class="col-lg-8 d-flex align-items-stretch">
+              <div class="card w-100">
+                <div class="card-body p-4">
+                  <h5 class="card-title fw-semibold mb-4">Recent Transactions</h5>
+                  <div class="table-responsive">
+                    <table class="table text-nowrap mb-0 align-middle">
+                      <thead class="text-dark fs-4">
+                        <tr>
+                          <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Batch Id</h6>
+                          </th>
+                          <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Product</h6>
+                          </th>
+                          <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Type</h6>
+                          </th>
+                          <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Quantity</h6>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($transaction as $transactions)
               <tr>
-              <td class="border-bottom-0">
+                <td class="border-bottom-0">
                 <h6 class="mb-0">{{$transactions->batch_id}}</h6>
-              </td>
-              <td class="border-bottom-0">
+                </td>
+                <td class="border-bottom-0">
                 <h6 class="mb-1">{{$transactions->item->item}}</h6>
                 <span class="fw-normal">{{$transactions->item->category->category}} |
-                {{$transactions->item->subcategory->subcategory}}</span>
-              </td>
-              <td class="border-bottom-0">
+                  {{$transactions->item->subcategory->subcategory}}</span>
+                </td>
+                <td class="border-bottom-0">
                 <div class="d-flex align-items-center gap-2">
-                <span
+                  <span
                   class="badge {{$transactions->change_type === 'restock' ? 'bg-success' : 'bg-danger'}} rounded-3 fw-semibold">{{ucfirst($transactions->change_type)}}</span>
                 </div>
-              </td>
-              <td class="border-bottom-0">
+                </td>
+                <td class="border-bottom-0">
                 <p class="mb-0 fw-medium">{{$transactions->change_quantity}}</p>
-              </td>
+                </td>
               </tr>
             @endforeach
-                    </tbody>
-                  </table>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   </section>
   @include('Admin/common/footer-link')

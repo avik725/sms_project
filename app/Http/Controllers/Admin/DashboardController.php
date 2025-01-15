@@ -79,21 +79,4 @@ class DashboardController extends Controller
             ]);
         }
     }
-
-    public function fetchChartData()
-    {
-        $data = DB::table('categories')
-            ->join('items', 'categories.category_id', '=', 'items.category_id')
-            ->leftJoin('sales', 'items.items_id', '=', 'sales.item_id')
-            ->leftJoin('purchases', 'items.items_id', '=', 'purchases.item_id')
-            ->select(
-                'categories.category as category',
-                DB::raw('SUM(sales.quantity) as sales'),
-                DB::raw('SUM(purchases.quantity) as restocks')
-            )
-            ->groupBy('categories.category_id', 'categories.category')
-            ->get();
-
-        return response()->json($data);
-    }
 }

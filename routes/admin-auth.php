@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SuppliersController;
 use App\Http\Controllers\Admin\CategoriesController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredAdminController::class, 'create'])
@@ -100,8 +101,12 @@ Route::prefix('admin')->controller(BatchController::class, )->middleware(['auth'
 
 // Dashboard Apexchart Data Fetch Code
 
-Route::get('/api/category-sales-restocks', function () {
-    $data = DB::table('categories')
+
+
+Route::get('/api/category-sales-restocks', function (Request $request) {
+    $monthYear = $request->input('monthYear'); // Correct way to get query parameters
+
+    $query = DB::table('categories')
         ->join('items', 'categories.category_id', '=', 'items.category_id')
         ->leftJoin('sales', function ($join) {
             $join->on('items.items_id', '=', 'sales.item_id')
@@ -116,9 +121,20 @@ Route::get('/api/category-sales-restocks', function () {
             DB::raw('SUM(sales.quantity) as sales'),
             DB::raw('SUM(purchases.quantity) as restocks')
         )
-        ->groupBy('categories.category_id', 'categories.category')
-        ->get();
+        ->groupBy('categories.category_id', 'categories.category');
+
+    if ($monthYear) {
+        [$year, $month] = explode('-', $monthYear);
+        $query->whereYear('sales.created_at', $year)
+              ->whereMonth('sales.created_at', $month)
+              ->whereYear('purchases.created_at', $year)
+              ->whereMonth('purchases.created_at', $month);
+    }
+
+    $data = $query->get();
 
     return response()->json($data);
 });
+
+
 
