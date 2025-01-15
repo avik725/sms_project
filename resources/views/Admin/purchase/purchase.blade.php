@@ -79,6 +79,60 @@
                                 </form>
                             </div>
 
+                            <div id="edit-form" style="display:none; max-width:840px; overflow:hidden;">
+                                <form method="POST" class="p-4">
+                                    @csrf
+                                    <h4 class="card-title fw-semibold mb-4">Update Existing Order</h4>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-3">
+                                            <label for="item_id" class="form-label">Item Name</label><span>*</span>
+                                            <select name="item_id" id="item_id" class="form-control">
+                                                <option value="">Select Item</option>
+                                                @foreach ($items as $items_data)
+                                                    <option value="{{ $items_data->items_id }}">{{ $items_data->item }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('item_id')
+                                            <div class="text-danger">{{ $message }}</div> @enderror
+                                        </div>
+
+                                        <div class="col-lg-6 mb-3">
+                                            <label for="supplier_id" class="form-label">Supplier</label><span>*</span>
+                                            <select name="supplier_id" id="supplier_id" class="form-control">
+                                                <option value="">Select Suppliers</option>
+                                                @foreach ($suppliers as $suppliers_data)
+                                                    <option value="{{ $suppliers_data->suppliers_id }}">
+                                                        {{ $suppliers_data->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('supplier_id')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-3">
+                                            <label for="quantity" class="form-label">Quantity</label><span>*</span>
+                                            <input type="number" name="quantity" id="quantity" class="form-control">
+                                            @error('quantity')
+                                            <div class="text-danger">{{ $message }}</div> @enderror
+                                        </div>
+
+                                        <div class="col-lg-6 mb-3">
+                                            <label for="expiry_date" class="form-label">Expiry Date</label><span>
+                                                (optional)</span>
+                                            <input type="date" name="expiry_date" id="expiry_date" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Place Order</button>
+                                </form>
+                            </div>
+
                             <!-- Button to trigger Fancybox -->
                             <div class="row">
                                 <div class="col-lg-6">
@@ -168,6 +222,44 @@
                 }
                 ]
             })
+        });
+    </script>
+
+    <script>
+        var getPurchaseDataUrl = "{{ route('admin/get-purchase-details', ['purchase_id' => ':purchaseId']) }}";
+        var editPurchaseUrl = "{{ route('admin/update-purchases', ['purchase_id' => ':purchaseId']) }}";
+
+        $(document).ready(function () {
+            $('#edit-form > form').attr('action', editPurchaseUrl.replace(':purchaseId', ''));
+            $(document).on('click', '#editBtn', function (e) {
+                e.preventDefault();
+
+                var purchaseId = $(this).data('purchase_id');
+                $('#edit-form > form').attr('action', editPurchaseUrl.replace(':purchaseId', purchaseId));
+                $.ajax({
+                    url: getPurchaseDataUrl.replace(':purchaseId', purchaseId),
+                    method: 'GET',
+                    success: function (response) {
+                        if (response.error) {
+                            alert('Error: ' + response.error);
+                        } else {
+                            var itemSelectize = $('#edit-form #item_id')[0].selectize;
+                            itemSelectize.setValue(response.item_id);
+
+                            var supplierSelectize = $('#edit-form #supplier_id')[0].selectize;
+                            supplierSelectize.setValue(response.supplier_id);
+
+                            $('#edit-form #quantity').val(response.quantity);
+                            $('#edit-form #expiry_date').val(response.expiry_date);
+
+                            $.fancybox.open($('#edit-form'));
+                        }
+                    },
+                    error: function () {
+                        alert('Failed to fetch purchase data');
+                    }
+                });
+            });
         });
     </script>
 

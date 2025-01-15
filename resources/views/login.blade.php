@@ -38,7 +38,7 @@
           </p>
         </div>
 
-        <div class="col-lg-4 col-md-8 offset-lg-1 offset-md-2 mb-5 mb-lg-0 position-relative">
+        <div class="col-lg-4 col-md-8 offset-md-1 mb-5 mb-lg-0 position-relative">
           <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
           <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 

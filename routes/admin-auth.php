@@ -77,9 +77,10 @@ Route::prefix('admin')->controller(InventoryController::class,)->middleware(['au
 Route::prefix('admin')->controller(PurchasesController::class,)->middleware(['auth','verified'])->name('admin/')->group(function(){
     Route::get('purchases','index')->name('purchases');
     Route::post('store-purchases','store')->name('store-purchases');
-    Route::post('update-purchases/{purchases_id}','update')->name('update-purchases');
-    Route::get('fulfill-purchase/{purchases_id}','fulfill')->name('fulfill-purchase');
-    Route::get('destroy-purchase/{purchases_id}','destroy')->name('destroy-purchase');
+    Route::post('update-purchases/{purchase_id}','update')->name('update-purchases');
+    Route::get('get-purchase-details/{purchase_id}','getPurchaseDetails')->name('get-purchase-details');
+    Route::get('fulfill-purchase/{purchase_id}','fulfill')->name('fulfill-purchase');
+    Route::get('destroy-purchase/{purchase_id}','destroy')->name('destroy-purchase');
 });
 
 Route::prefix('admin')->controller(SalesController::class,)->middleware(['auth','verified'])->name('admin/')->group(function(){

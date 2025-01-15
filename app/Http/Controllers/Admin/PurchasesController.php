@@ -53,7 +53,9 @@ class PurchasesController extends Controller
                 ->addColumn('action', function ($row) {
                     $actions = '<div>';
                     if ($row->status === 'order placed') {
-                        $actions .= '<a href="' . route('admin/destroy-purchase', $row->purchase_id) . '" class="btn btn-danger py-2 px-3 btn-sm">Delete</a>';
+                        $actions .= '<a href="javascript:void(0);" id="editBtn" class="edit m-2 btn btn-success btn-sm" data-purchase_id="' . $row->purchase_id . '" data-fancybox data-src="#edit-form">Edit</a>';
+                        
+                        $actions .= '<a href="' . route('admin/destroy-purchase', $row->purchase_id) . '" class="btn btn-danger m-2 btn-sm">Delete</a>';
                     }
                     else if($row->status === 'fulfilled'){
                         $actions .= 'Not Allowed';
@@ -68,7 +70,6 @@ class PurchasesController extends Controller
 
         return view('admin/purchase/purchase',compact('items','suppliers'));
     }
-
 
     public function store(Request $request)
     {
@@ -90,6 +91,20 @@ class PurchasesController extends Controller
         return redirect()->route('admin/purchases')->with('success', 'Purchase Order Created Successfully...!');
     }
 
+    public function update(Request $request,$purchase_id)
+    {
+        $request->validate([
+            'item_id' => 'required|exists:items,items_id',
+            'supplier_id' => 'required|exists:suppliers,suppliers_id',
+            'quantity' => 'required|numeric|min:1',
+            'expiry_date' => 'nullable|date',
+        ]);
+
+        $purchase = PurchasesModel::findOrFail($purchase_id);
+        $purchase->update($request->all());
+
+        return redirect()->route('admin/purchases')->with('success', 'Purchase Order Updated Successfully...!');
+    }
     public function fulfill($purchase_id)
     {
         $purchase = PurchasesModel::findOrFail($purchase_id);
@@ -124,12 +139,17 @@ class PurchasesController extends Controller
         return redirect()->route('admin/purchases')->with('success', 'Purchase Order Fulfilled Successfully.');
     }
 
-
     public function destroy($purchase_id)
     {
         $purchase = PurchasesModel::findOrFail($purchase_id);
         $purchase->delete();
 
         return redirect()->route('admin/purchases')->with('success', 'Purchase Order Deleted Successfully.');
+    }
+
+    public function getPurchaseDetails($purchase_id){
+        $purchase = PurchasesModel::findOrFail($purchase_id);
+
+        return response()->json($purchase);
     }
 }
