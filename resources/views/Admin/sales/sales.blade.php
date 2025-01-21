@@ -8,6 +8,20 @@
 
 <body>
     <section id="sales-page">
+
+        <!-- Preloader -->
+        <div id="preloader">
+            <div class="bar-container">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <h1>Hang On !</h1>
+            <h1>It's Loading...</h1>
+        </div>
+
         <!-- Body Wrapper -->
         <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
             data-sidebar-position="fixed" data-header-position="fixed">

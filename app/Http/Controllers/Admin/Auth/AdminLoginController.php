@@ -31,6 +31,7 @@ class AdminLoginController extends Controller
         if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
             Log::debug('Admin logged in successfully');
             $request->session()->regenerate();
+            $request->session()->flash('show_preloader', true);
             return redirect()->intended(route('admin/dashboard'));
         } else {
             Log::debug('Admin login failed');

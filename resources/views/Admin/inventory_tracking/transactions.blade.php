@@ -7,6 +7,20 @@
 </head>
 
 <body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="bar-container">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <h1>Hang On !</h1>
+        <h1>It's Loading...</h1>
+    </div>
+
     <!-- Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
@@ -32,7 +46,8 @@
 
                         <!-- Data Table for Suppliers -->
                         <div class="table-responsive">
-                            <table id="example" class="table table-striped yajra-datatables text-center" style="width:100%">
+                            <table id="example" class="table table-striped yajra-datatables text-center"
+                                style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>Sr.no</th>

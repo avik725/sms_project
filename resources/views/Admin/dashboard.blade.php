@@ -7,6 +7,32 @@
 
 <body>
   <section id="dashboard-page">
+
+    @if(session('show_preloader'))
+    <section id="preloader-login">
+      <div class="loader">
+      <p class="text">Heyy You...!🫵🏻</p>
+      <p class="text">Kuch nhi😅</p>
+      <p class="text">Welcome...</p>
+      <p class="text">To The Smart Stock Project</p>
+      <p class="text loading">Loading...</p>
+      </div>
+    </section>
+  @else
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="bar-container">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    </div>
+    <h1>Loading...</h1>
+  </div>
+@endif
+
+
     <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
       data-sidebar-position="fixed" data-header-position="fixed">

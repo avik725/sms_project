@@ -7,6 +7,20 @@
 </head>
 
 <body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="bar-container">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <h1>Hang On !</h1>
+        <h1>It's Loading...</h1>
+    </div>
+
     <!-- Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
@@ -89,8 +103,8 @@
                                     <div class="col-lg-6 mb-3">
                                         <label for="measurement_value" class="form-label">Measurement
                                             Value</label><span>*</span>
-                                        <input type="text" class="form-control" name="measurement_value"  id="measurement_value"
-                                            placeholder="Enter Measurement Value">
+                                        <input type="text" class="form-control" name="measurement_value"
+                                            id="measurement_value" placeholder="Enter Measurement Value">
                                         @error('measurement_value')
                                         <div class="text-danger">{{ $message }}</div> @enderror
                                     </div>
@@ -99,13 +113,16 @@
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
                                         <label for="buying_price" class="form-label">Buying Price</label><span>*</span>
-                                        <input type="text" class="form-control" name="buying_price" placeholder="Enter Buying Price" id="buying_price">
+                                        <input type="text" class="form-control" name="buying_price"
+                                            placeholder="Enter Buying Price" id="buying_price">
                                         @error('buying_price')
                                         <div class="text-danger">{{ $message }}</div> @enderror
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <label for="selling_price" class="form-label">Selling Price</label><span>*</span>
-                                        <input type="text" class="form-control" name="selling_price" placeholder="Enter Price" id="selling_price">
+                                        <label for="selling_price" class="form-label">Selling
+                                            Price</label><span>*</span>
+                                        <input type="text" class="form-control" name="selling_price"
+                                            placeholder="Enter Price" id="selling_price">
                                         @error('selling_price')
                                         <div class="text-danger">{{ $message }}</div> @enderror
                                     </div>
@@ -184,7 +201,8 @@
                                         <div class="text-danger">{{ $message }}</div> @enderror
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <label for="selling_price" class="form-label">Selling Price</label><span>*</span>
+                                        <label for="selling_price" class="form-label">Selling
+                                            Price</label><span>*</span>
                                         <input type="text" class="form-control" name="selling_price" id="selling_price"
                                             placeholder="Enter Selling Price">
                                         @error('selling_price')
