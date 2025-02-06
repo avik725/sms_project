@@ -44,9 +44,9 @@
 
           <div class="card bg-glass">
             <div class="card-body px-4 py-5 px-md-5">
-              <form method="POST" action="{{route('admin/login')}}">
+              <form method="POST" action="{{route('staff/login')}}">
                 @csrf
-                <h3 class="mb-4 fw-bold text-center" style="color: hsl(218deg 1.57% 31.79%);">Admin Login</h3>
+                <h3 class="mb-4 fw-bold text-center" style="color: hsl(218deg 1.57% 31.79%);">Staff Login</h3>
                 <!-- Email input -->
                 <div data-mdb-input-init class="form-outline mb-4">
                   <label class="form-label" for="email">Email address</label>
@@ -65,7 +65,7 @@
                   <i class="ti ti-login-2"></i>
                 </button>
               </form>
-              <label class="form-label">If you're Staff ? <a href="{{route('staff/login')}}" class="text-decoration-none">Click Here</a></label>
+              <label class="form-label">If you're Admin ? <a href="{{route('admin/login')}}" class="text-decoration-none">Click Here</a></label>
             </div>
           </div>
         </div>

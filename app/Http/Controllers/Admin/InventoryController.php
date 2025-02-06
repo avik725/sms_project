@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\InventoryTracking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class InventoryController extends Controller
 {
@@ -26,7 +28,7 @@ class InventoryController extends Controller
                 ->addColumn('action', function ($row) {
                     return '
                         <div>
-                            <a href="' . route('admin/destroy-transactions', $row->inventory_tracking_id) . '" class="delete btn btn-danger btn-sm Delete-button">Delete</a>
+                            <a href="' . route('destroy-transactions', $row->inventory_tracking_id) . '" class="delete btn btn-danger btn-sm Delete-button">Delete</a>
                         </div>';
                 })
                 ->rawColumns(['action'])
@@ -55,6 +57,6 @@ class InventoryController extends Controller
         
         $inventory->delete();
 
-        return redirect()->route('admin/transactions')->with('success','Transaction Deleted Successfully...!');
+        return redirect()->route('transactions')->with('success','Transaction Deleted Successfully...!');
     }
 }

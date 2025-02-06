@@ -66,7 +66,7 @@
 <!-- Stock levels Fetch  -->
 <script>
   var getStockLevelUrl =
-    "{{ route('admin/get-stock-levels', ['item_id' => ':itemId']) }}";
+    "{{ route('get-stock-levels', ['item_id' => ':itemId']) }}";
 
   $(".stock-level").on("change", "#item_id", function () {
     console.log("Change Event Triggered"); // Debug point
@@ -123,7 +123,7 @@
 <!-- No Of Items Fetch -->
 <script>
   var getNoOfItemsUrl =
-    "{{ route('admin/get-no-of-items', ['category_id' => ':categoryId']) }}";
+    "{{ route('get-no-of-items', ['category_id' => ':categoryId']) }}";
 
   $(".category_items").on("change", "#category_id", function () {
     console.log("Change Event Triggered"); // Debug point

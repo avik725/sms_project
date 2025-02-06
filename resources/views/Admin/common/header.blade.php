@@ -23,14 +23,24 @@
               class="rounded-circle">
           </a>
           <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-            <div class="message-body">
-              <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                <i class="ti ti-mail fs-6"></i>
-                <p class="mb-0 fs-3">My Account</p>
-              </a>
-              <form action="{{route('admin/logout')}}" method="POST">
+            <div class="message-body text-center">
+              @if ($userGuard === 'admin')
+          <i class="ti ti-user fs-user d-inline-block m-2 "></i>
+          <a href="javascript:void(0)" class="d-inline-block text-center gap-2 dropdown-item">
+          <p class="mb-0 fs-3">{{ucfirst($user->name)}}</p>
+          </a>
+        @elseif($userGuard === 'staff')
+        <div>
+        <i class="ti ti-user fs-user d-inline-block m-2"></i>
+        <p class="fs-3 text-center mb-2">{{ucfirst($user->name)}}</p>
+        <p class="mb-2 fs-3 text-center">{{$user->email}}</p>
+        <p class="fs-3 text-center mb-0">Role: {{ucfirst($user->role)}}</p>
+        </div>
+      @endif
+              <form action="{{route($userGuard . '/logout')}}" method="POST">
                 @csrf
-                <a href="route('admin/logout')" aria-expanded="false" class="btn btn-outline-primary mx-3 mt-2 d-block" onclick="event.preventDefault();
+                <a href="route('$userGuard . '/logout')" aria-expanded="false"
+                  class="btn btn-outline-primary mx-3 mt-2 d-block" onclick="event.preventDefault();
         this.closest('form').submit();">Logout</a>
               </form>
             </div>

@@ -40,7 +40,7 @@
 
                             <!-- Form to add supplier -->
                             <div id="add-form" style="display:none; max-width:840px; overflow:hidden;">
-                                <form action="{{ route('admin/store-purchases') }}" method="POST" class="p-4">
+                                <form action="{{ route('store-purchases') }}" method="POST" class="p-4">
                                     @csrf
                                     <h4 class="card-title fw-semibold mb-4">Place New Order</h4>
 
@@ -195,7 +195,7 @@
             var table = $('.yajra-datatables').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{route('admin/purchases')}}",
+                ajax: "{{route('purchases')}}",
                 columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
@@ -240,8 +240,8 @@
     </script>
 
     <script>
-        var getPurchaseDataUrl = "{{ route('admin/get-purchase-details', ['purchase_id' => ':purchaseId']) }}";
-        var editPurchaseUrl = "{{ route('admin/update-purchases', ['purchase_id' => ':purchaseId']) }}";
+        var getPurchaseDataUrl = "{{ route('get-purchase-details', ['purchase_id' => ':purchaseId']) }}";
+        var editPurchaseUrl = "{{ route('update-purchases', ['purchase_id' => ':purchaseId']) }}";
 
         $(document).ready(function () {
             $('#edit-form > form').attr('action', editPurchaseUrl.replace(':purchaseId', ''));

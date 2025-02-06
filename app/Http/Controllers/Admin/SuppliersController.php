@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\SuppliersModel;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
+
 
 class SuppliersController extends Controller
 {

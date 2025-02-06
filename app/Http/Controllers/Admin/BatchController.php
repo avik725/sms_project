@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\BatchesModel;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
+
 
 class BatchController extends Controller
 {

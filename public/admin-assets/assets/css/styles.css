@@ -9771,6 +9771,10 @@ textarea.form-control-lg {
   font-size: calc(1.3125rem + 0.75vw) !important;
 }
 
+.fs-user {
+  font-size: 2.25rem !important;
+}
+
 .fst-italic {
   font-style: italic !important;
 }

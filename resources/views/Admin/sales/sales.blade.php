@@ -40,7 +40,7 @@
 
                             <!-- Form to add supplier -->
                             <div id="add-form" style="display:none; max-width:840px; overflow:hidden;">
-                                <form action="{{ route('admin/store-sales') }}" method="POST" class="p-4">
+                                <form action="{{ route('store-sales') }}" method="POST" class="p-4">
                                     @csrf
                                     <h4 class="card-title fw-semibold mb-4">Create New Order</h4>
 
@@ -204,7 +204,7 @@
             var table = $('.yajra-datatables').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{route('admin/sales')}}",
+                ajax: "{{route('sales')}}",
                 columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
@@ -254,7 +254,7 @@
                 if (itemId) {
                     // AJAX request to fetch item details
                     $.ajax({
-                        url: "{{ route('admin/getItemDetails') }}",
+                        url: "{{ route('getItemDetails') }}",
                         method: "GET",
                         data: { item_id: itemId },
                         success: function (response) {
@@ -288,8 +288,8 @@
     </script>
 
     <script>
-        var getSaleDataUrl = "{{ route('admin/get-sale-details', ['sale_id' => ':saleId']) }}";
-        var editSaleUrl = "{{ route('admin/update-sales', ['sale_id' => ':saleId']) }}";
+        var getSaleDataUrl = "{{ route('get-sale-details', ['sale_id' => ':saleId']) }}";
+        var editSaleUrl = "{{ route('update-sales', ['sale_id' => ':saleId']) }}";
 
         $(document).ready(function () {
             $('#edit-form > form').attr('action', editSaleUrl.replace(':saleId', ''));

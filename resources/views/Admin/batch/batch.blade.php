@@ -78,7 +78,7 @@
             var table = $('.yajra-datatables').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{route('admin/batch')}}",
+                ajax: "{{route('batch')}}",
                 columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'

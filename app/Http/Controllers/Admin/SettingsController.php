@@ -7,6 +7,8 @@ use App\Models\SettingsModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 
 class SettingsController extends Controller
 {

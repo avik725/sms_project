@@ -23,6 +23,7 @@ class RedirectIfAuthenticated
                 return redirect()->route('admin/dashboard');
             }
         }
+
         return $next($request);
     }
 }

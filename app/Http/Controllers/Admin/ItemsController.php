@@ -7,11 +7,11 @@ use App\Models\CategoriesModel;
 use App\Models\ItemsModel;
 use App\Models\SubcategoriesModel;
 use App\Models\Unit;
-use Error;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Testing\Fluent\Concerns\Has;
+use Illuminate\Support\Facades\Auth;
+
 
 class ItemsController extends Controller
 {

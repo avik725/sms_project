@@ -8,6 +8,7 @@ use App\Models\CategoriesModel;
 use App\Models\InventoryTracking;
 use App\Models\ItemsModel;
 use App\Models\SubcategoriesModel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,6 +17,7 @@ class DashboardController extends Controller
 {
     public function Dashboard()
     {
+
         $transaction = InventoryTracking::latest()->limit(5)->get();
 
         $batches = BatchesModel::where('expiry_date', '>', now())

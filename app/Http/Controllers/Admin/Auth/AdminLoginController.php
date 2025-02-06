@@ -32,7 +32,7 @@ class AdminLoginController extends Controller
             Log::debug('Admin logged in successfully');
             $request->session()->regenerate();
             $request->session()->flash('show_preloader', true);
-            return redirect()->intended(route('admin/dashboard'));
+            return redirect()->intended(route('dashboard'));
         } else {
             Log::debug('Admin login failed');
             return back()->withErrors(['email' => 'The provided credentials do not match our records.']);
@@ -51,6 +51,6 @@ class AdminLoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect()->route('admin/login');
     }
 }

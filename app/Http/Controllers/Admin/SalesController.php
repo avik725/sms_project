@@ -10,6 +10,8 @@ use App\Models\InventoryTracking;
 use App\Models\SalesModel;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
+
 
 class SalesController extends Controller
 {
@@ -51,7 +53,7 @@ class SalesController extends Controller
                 ->addColumn('change_status', function ($row) {
                     $actions = '<div class="text-center">';
                     if ($row->status === 'pending') {
-                        $actions .= '<a href="' . route('admin/confirm-sale', $row->sale_id) . '" class="btn btn-primary btn-sm">Confirm</a>';
+                        $actions .= '<a href="' . route('confirm-sale', $row->sale_id) . '" class="btn btn-primary btn-sm">Confirm</a>';
                     } else if ($row->status === 'confirmed') {
                         $actions .= 'Not Allowed';
                     }
@@ -63,7 +65,7 @@ class SalesController extends Controller
                     if ($row->status === 'pending') {
                         $actions .= '<a href="javascript:void(0);" id="editBtn" class="edit m-2 btn btn-success btn-sm" data-sale_id="' . $row->sale_id . '" data-fancybox data-src="#edit-form">Edit</a>';
 
-                        $actions .= '<a href="' . route('admin/destroy-sale', $row->sale_id) . '" class="btn m-2 btn-danger btn-sm">Delete</a>';
+                        $actions .= '<a href="' . route('destroy-sale', $row->sale_id) . '" class="btn m-2 btn-danger btn-sm">Delete</a>';
                     } else if ($row->status === 'confirmed') {
                         $actions .= 'Not Allowed';
                     }
@@ -127,7 +129,7 @@ class SalesController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->route('admin/sales')->with('success', 'Sale Order created successfully.');
+        return redirect()->route('sales')->with('success', 'Sale Order created successfully.');
     }
 
     public function update(Request $request, $sale_id)
@@ -198,7 +200,7 @@ class SalesController extends Controller
         $sale->status = 'pending'; // Ensure the status remains pending for confirmation
         $sale->save();
 
-        return redirect()->route('admin/sales')->with('success', 'Sale Order updated successfully.');
+        return redirect()->route('sales')->with('success', 'Sale Order updated successfully.');
     }
 
     public function confirm($sale_id)
@@ -233,7 +235,7 @@ class SalesController extends Controller
         $sale->status = 'confirmed';
         $sale->save();
 
-        return redirect()->route('admin/sales')->with('success', 'Sale confirmed successfully.');
+        return redirect()->route('sales')->with('success', 'Sale confirmed successfully.');
     }
 
     public function destroy($sale_id)
@@ -246,7 +248,7 @@ class SalesController extends Controller
 
         $sale->delete();
 
-        return redirect()->route('admin/sales')->with('success', 'Sale deleted successfully.');
+        return redirect()->route('sales')->with('success', 'Sale deleted successfully.');
     }
 
     public function getItemDetails(Request $request)

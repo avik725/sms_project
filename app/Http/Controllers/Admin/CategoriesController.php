@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\CategoriesModel;
 use App\Models\SubcategoriesModel;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
+
 
 class CategoriesController extends Controller
 {

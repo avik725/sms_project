@@ -10,6 +10,7 @@ use App\Models\PurchasesModel;
 use App\Models\SuppliersModel;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class PurchasesController extends Controller
 {
@@ -42,7 +43,7 @@ class PurchasesController extends Controller
                 ->addColumn('change_status',function ($row){
                     $column = '<div>';
                     if ($row->status === 'order placed') {
-                        $column .= '<a href="' . route('admin/fulfill-purchase', $row->purchase_id) . '" class="btn btn-info py-2 px-3 btn-sm">Fulfill</a>';
+                        $column .= '<a href="' . route('fulfill-purchase', $row->purchase_id) . '" class="btn btn-info py-2 px-3 btn-sm">Fulfill</a>';
                     }
                     else if($row->status === 'fulfilled'){
                         $column .= 'Not Allowed';
@@ -55,7 +56,7 @@ class PurchasesController extends Controller
                     if ($row->status === 'order placed') {
                         $actions .= '<a href="javascript:void(0);" id="editBtn" class="edit m-2 btn btn-success btn-sm" data-purchase_id="' . $row->purchase_id . '" data-fancybox data-src="#edit-form">Edit</a>';
                         
-                        $actions .= '<a href="' . route('admin/destroy-purchase', $row->purchase_id) . '" class="btn btn-danger m-2 btn-sm">Delete</a>';
+                        $actions .= '<a href="' . route('destroy-purchase', $row->purchase_id) . '" class="btn btn-danger m-2 btn-sm">Delete</a>';
                     }
                     else if($row->status === 'fulfilled'){
                         $actions .= 'Not Allowed';
@@ -88,7 +89,7 @@ class PurchasesController extends Controller
             'status' => 'order placed',
         ]);
 
-        return redirect()->route('admin/purchases')->with('success', 'Purchase Order Created Successfully...!');
+        return redirect()->route('purchases')->with('success', 'Purchase Order Created Successfully...!');
     }
 
     public function update(Request $request,$purchase_id)
@@ -103,14 +104,14 @@ class PurchasesController extends Controller
         $purchase = PurchasesModel::findOrFail($purchase_id);
         $purchase->update($request->all());
 
-        return redirect()->route('admin/purchases')->with('success', 'Purchase Order Updated Successfully...!');
+        return redirect()->route('purchases')->with('success', 'Purchase Order Updated Successfully...!');
     }
     public function fulfill($purchase_id)
     {
         $purchase = PurchasesModel::findOrFail($purchase_id);
 
         if ($purchase->status !== 'order placed') {
-            return redirect()->route('admin/purchases')->with('error', 'Order already fulfilled.');
+            return redirect()->route('purchases')->with('error', 'Order already fulfilled.');
         }
 
         // Create a new batch
@@ -136,7 +137,7 @@ class PurchasesController extends Controller
             'remaining_stock' => InventoryTracking::calculateRemainingStock($purchase->item_id, $purchase->quantity, 'restock'),
         ]);
 
-        return redirect()->route('admin/purchases')->with('success', 'Purchase Order Fulfilled Successfully.');
+        return redirect()->route('purchases')->with('success', 'Purchase Order Fulfilled Successfully.');
     }
 
     public function destroy($purchase_id)
@@ -144,7 +145,7 @@ class PurchasesController extends Controller
         $purchase = PurchasesModel::findOrFail($purchase_id);
         $purchase->delete();
 
-        return redirect()->route('admin/purchases')->with('success', 'Purchase Order Deleted Successfully.');
+        return redirect()->route('purchases')->with('success', 'Purchase Order Deleted Successfully.');
     }
 
     public function getPurchaseDetails($purchase_id){

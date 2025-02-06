@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AddUserController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\Auth\RegisteredAdminController;
 use App\Http\Controllers\Admin\BatchController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SuppliersController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Staff\Auth\StaffAuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -21,28 +23,37 @@ Route::middleware('guest')->group(function () {
 
     Route::post('register', [RegisteredAdminController::class, 'store']);
 
-    Route::get('/', [AdminLoginController::class, 'create'])
-        ->name('login');
+    Route::get('admin/login', [AdminLoginController::class, 'create'])
+        ->name('admin/login');
 
-    Route::post('/', [AdminLoginController::class, 'store']);
+    Route::post('admin/login', [AdminLoginController::class, 'store']);
+
+    Route::get('/', [StaffAuthController::class, 'create'])
+        ->name('staff/login');
+
+    Route::post('/', [StaffAuthController::class, 'store']);
 });
 
-Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin/')->group(function () {
+Route::prefix('staff')->middleware(['auth'])->name('staff/')->group(function () {
+    Route::post('logout', [StaffAuthController::class, 'destroy'])->name('logout');
+});
+
+Route::prefix('admin')->middleware(['auth'])->name('admin/')->group(function () {
     Route::post('logout', [AdminLoginController::class, 'destroy'])->name('logout');
 });
 
-Route::prefix('admin')->controller(DashboardController::class, )->middleware(['auth', 'verified'])->name('admin/')->group(function () {
+Route::controller(DashboardController::class, )->middleware(['auth'])->group(function () {
     Route::get('dashboard', 'Dashboard')->name('dashboard');
     Route::get('get-stock-levels/{item_id}', 'getStockLevels')->name('get-stock-levels');
     Route::get('get-no-of-items/{category_id}', 'getNoOfItems')->name('get-no-of-items');
 });
 
-Route::prefix('admin')->controller(SettingsController::class, )->middleware(['auth', 'verified'])->name('admin/')->group(function () {
+Route::prefix('admin')->controller(SettingsController::class, )->middleware(['auth'])->name('admin/')->group(function () {
     Route::get('settings', 'Settings')->name('settings');
     Route::post('settings-update/{settings_id}', 'update')->name('settings-update');
 });
 
-Route::prefix('admin')->controller(SuppliersController::class, )->middleware(['auth', 'verified'])->name('admin/')->group(function () {
+Route::prefix('admin')->controller(SuppliersController::class, )->middleware(['auth'])->name('admin/')->group(function () {
     Route::get('suppliers', 'Suppliers')->name('suppliers');
     Route::get('supplier-data/{suppliers_id}', 'getSupplierData')->name('supplier-data');
     Route::post('store-suppliers', 'store')->name('store-suppliers');
@@ -50,7 +61,7 @@ Route::prefix('admin')->controller(SuppliersController::class, )->middleware(['a
     Route::get('delete-suppliers/{suppliers_id}', 'destroy')->name('delete-suppliers');
 });
 
-Route::prefix('admin')->controller(CategoriesController::class, )->middleware(['auth', 'verified'])->name('admin/')->group(function () {
+Route::prefix('admin')->controller(CategoriesController::class, )->middleware(['auth'])->name('admin/')->group(function () {
     Route::get('categories', 'index')->name('categories');
     Route::post('store-categories', 'storeCategory')->name('store-categories');
     Route::post('store-subcategories', 'storeSubcategory')->name('store-subcategories');
@@ -58,7 +69,7 @@ Route::prefix('admin')->controller(CategoriesController::class, )->middleware(['
     Route::get('destroy-subcategories/{subcategory_id}', 'destroySubcategory')->name('destroy-subcategories');
 });
 
-Route::prefix('admin')->controller(ItemsController::class, )->middleware(['auth', 'verified'])->name('admin/')->group(function () {
+Route::prefix('admin')->controller(ItemsController::class, )->middleware(['auth'])->name('admin/')->group(function () {
     Route::get('items', 'index')->name('items');
     Route::post('store-items', 'store')->name('store-items');
     Route::get('getsubcategories-items', 'getSubcategories')->name('getsubcategories-items');
@@ -69,13 +80,13 @@ Route::prefix('admin')->controller(ItemsController::class, )->middleware(['auth'
     Route::get('destroy-items/{items_id}', 'destroy')->name('destroy-items');
 });
 
-Route::prefix('admin')->controller(InventoryController::class, )->middleware(['auth', 'verified'])->name('admin/')->group(function () {
+Route::controller(InventoryController::class, )->middleware(['auth'])->group(function () {
     Route::get('transactions', 'index')->name('transactions');
     Route::post('transactions-store', 'store')->name('transactions-store');
     Route::get('destroy-transactions/{inventory_tracking_id}', 'destroy')->name('destroy-transactions');
 });
 
-Route::prefix('admin')->controller(PurchasesController::class, )->middleware(['auth', 'verified'])->name('admin/')->group(function () {
+Route::controller(PurchasesController::class, )->middleware(['auth'])->group(function () {
     Route::get('purchases', 'index')->name('purchases');
     Route::post('store-purchases', 'store')->name('store-purchases');
     Route::post('update-purchases/{purchase_id}', 'update')->name('update-purchases');
@@ -84,7 +95,7 @@ Route::prefix('admin')->controller(PurchasesController::class, )->middleware(['a
     Route::get('destroy-purchase/{purchase_id}', 'destroy')->name('destroy-purchase');
 });
 
-Route::prefix('admin')->controller(SalesController::class, )->middleware(['auth', 'verified'])->name('admin/')->group(function () {
+Route::controller(SalesController::class, )->middleware(['auth'])->group(function () {
     Route::get('sales', 'index')->name('sales');
     Route::post('store-sales', 'store')->name('store-sales');
     Route::post('update-sales/{sale_id}', 'update')->name('update-sales');
@@ -94,9 +105,17 @@ Route::prefix('admin')->controller(SalesController::class, )->middleware(['auth'
     Route::get('destroy-sale/{sale_id}', 'destroy')->name('destroy-sale');
 });
 
-Route::prefix('admin')->controller(BatchController::class, )->middleware(['auth', 'verified'])->name('admin/')->group(function () {
+Route::controller(BatchController::class, )->middleware(['auth'])->group(function () {
     Route::get('batch', 'index')->name('batch');
 });
+
+
+Route::prefix('admin')->controller(AddUserController::class, )->middleware(['auth'])->name('admin/')->group(function () {
+    Route::get('users','index')->name('users');
+    Route::post('add-users','store')->name('add-users');
+    Route::get('destroy-users/{email}','destroy')->name('destroy-users');
+});
+
 
 
 // Dashboard Apexchart Data Fetch Code
@@ -126,9 +145,9 @@ Route::get('/api/category-sales-restocks', function (Request $request) {
     if ($monthYear) {
         [$year, $month] = explode('-', $monthYear);
         $query->whereYear('sales.created_at', $year)
-              ->whereMonth('sales.created_at', $month)
-              ->whereYear('purchases.created_at', $year)
-              ->whereMonth('purchases.created_at', $month);
+            ->whereMonth('sales.created_at', $month)
+            ->whereYear('purchases.created_at', $year)
+            ->whereMonth('purchases.created_at', $month);
     }
 
     $data = $query->get();
