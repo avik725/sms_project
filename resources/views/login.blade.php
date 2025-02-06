@@ -2,76 +2,96 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
-  <link rel="stylesheet" href="{{asset("assets/css/login_page.css")}}">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-  <link rel="icon" type="image/x-icon" href="{{asset('assets/images/favicon.png')}}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{asset("assets/css/login2.css")}}">
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/images/favicon.png')}}">
 </head>
 
 <body>
-  <!-- Section: Design Block -->
-  <section class="background-radial-gradient overflow-hidden align-content-center">
-    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
-      <div class="row gx-lg-5 align-items-center mb-5">
-        <div class="col-lg-6 col-md-12 mb-5 mb-lg-0" style="z-index: 10">
-          <div class="d-flex align-items-center justify-content-center">
-            <img src="{{asset($project_data->login_bg)}}" style="height:90px; width:90px;" alt="">
-            <h1 class="m-0 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-              {{$project_data->project_name}}
-              Software</h1>
-          </div>
-          <h2 class="my-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-            The Best Thing You Will Need <br />
-            <span style="color: #4351cd;">For Your Business</span>
-          </h2>
-          <p class="mb-4 opacity-70" style="color: hsl(218deg 45.38% 88.09%)">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Temporibus, expedita iusto veniam atque, magni tempora mollitia
-            dolorum consequatur nulla, neque debitis eos reprehenderit quasi
-            ab ipsum nisi dolorem modi. Quos?
-          </p>
-        </div>
+    <div id="container">
+        <div class="login">
+            <div class="content">
+                <img src="{{asset($project_data->project_logo)}}" style="height: 110px;width: 279px;margin-bottom: 7px;"
+                    alt="">
+                <h1>Admin Login</h1>
+                <form method="POST" action="{{route('admin/login')}}">
+                    @csrf
+                    <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" />
+                    @error('email')
+                    <p class="error-msg">{{ $message }}</p> @enderror
 
-        <div class="col-lg-4 col-md-8 offset-md-1 mb-5 mb-lg-0 position-relative">
-          <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-          <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+                    <input type="password" name="password" placeholder="Password" />
+                    @error('password')
+                    <p class="error-msg">{{ $message }}</p> @enderror
 
-          <div class="card bg-glass">
-            <div class="card-body px-4 py-5 px-md-5">
-              <form method="POST" action="{{route('admin/login')}}">
-                @csrf
-                <h3 class="mb-4 fw-bold text-center" style="color: hsl(218deg 1.57% 31.79%);">Admin Login</h3>
-                <!-- Email input -->
-                <div data-mdb-input-init class="form-outline mb-4">
-                  <label class="form-label" for="email">Email address</label>
-                  <input type="email" id="email" name="email" class="form-control" />
-                </div>
+                    <button>Log In</button>
+                </form>
 
-                <!-- Password input -->
-                <div data-mdb-input-init class="form-outline mb-4">
-                  <label class="form-label" for="password">Password</label>
-                  <input type="password" id="password" name="password" class="form-control" />
-                </div>
-
-                <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-block mb-4">
-                  Log In
-                  <i class="ti ti-login-2"></i>
-                </button>
-              </form>
-              <label class="form-label">If you're Staff ? <a href="{{route('staff/login')}}" class="text-decoration-none">Click Here</a></label>
             </div>
-          </div>
         </div>
-      </div>
+        <div class="page front">
+            <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none"
+                    stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <h1>Hello !</h1>
+                <p>If you're Staff ? Click Below</p>
+                <button type="" id="staffLogin">Staff Login <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 16 16 12 12 8" />
+                        <line x1="8" y1="12" x2="16" y2="12" />
+                    </svg></button>
+            </div>
+        </div>
+        <div class="page back">
+            <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none"
+                    stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <h1>Hello !</h1>
+                <p>If you're Admin ? Click Below</p>
+                <button type="" id="AdminLogin"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 8 8 12 12 16" />
+                        <line x1="16" y1="12" x2="8" y2="12" />
+                    </svg> Log In</button>
+            </div>
+        </div>
+        <div class="register">
+            <div class="content">
+                <img src="{{asset($project_data->project_logo)}}" style="height: 110px;width: 279px;margin-bottom: 7px;"
+                    alt="">
+                <h1>Staff Login</h1>
+                <form method="POST" action="{{route('staff/login')}}">
+                    @csrf
+                    <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" />
+                    @error('email')
+                    <p class="error-msg">{{ $message }}</p> @enderror
+
+                    <input type="password" name="password" placeholder="Password" />
+                    @error('password')
+                    <p class="error-msg">{{ $message }}</p> @enderror
+
+                    <button>Log In</button>
+                </form>
+
+            </div>
+        </div>
     </div>
-  </section>
+
+    <script src="{{asset("assets/js/login.js")}}"></script>
 </body>
 
 </html>

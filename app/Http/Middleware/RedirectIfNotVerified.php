@@ -15,7 +15,7 @@ class RedirectIfNotVerified
         } elseif (Auth::guard('staff')->check()) {
             Auth::shouldUse('staff'); // Force Laravel to use staff guard
         } else {
-            return redirect()->route('login'); // Redirect if neither is authenticated
+            return redirect()->route('staff/login'); // Redirect if neither is authenticated
         }
 
         

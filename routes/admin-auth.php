@@ -32,6 +32,7 @@ Route::middleware('guest')->group(function () {
         ->name('staff/login');
 
     Route::post('/', [StaffAuthController::class, 'store']);
+    
 });
 
 Route::prefix('staff')->middleware(['auth'])->name('staff/')->group(function () {
