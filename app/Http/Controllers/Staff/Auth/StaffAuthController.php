@@ -18,7 +18,7 @@ class StaffAuthController extends Controller
      */
     public function create(): View
     {
-        return view('Login');
+        return view('login');
     }
 
     /**
