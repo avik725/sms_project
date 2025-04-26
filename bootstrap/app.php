@@ -3,6 +3,7 @@
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\RedirectIfNotVerified;
 use App\Http\Middleware\ShareAuthData;
+use App\Http\Middleware\TrustProxies;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,7 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'auth' => RedirectIfNotVerified::class,
-            'guest' => RedirectIfAuthenticated::class
+            'guest' => RedirectIfAuthenticated::class,
+            'trust' => TrustProxies::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

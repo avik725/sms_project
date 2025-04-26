@@ -26,7 +26,7 @@
                     @error('password')
                     <p class="error-msg">{{ $message }}</p> @enderror
 
-                    <button>Log In</button>
+                    <button>LogIn</button>
                 </form>
 
             </div>
