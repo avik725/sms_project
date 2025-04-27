@@ -1,4 +1,4 @@
-# Use official PHP image
+# Use official PHP 8.2 FPM image
 FROM php:8.2-fpm
 
 # Install system dependencies
@@ -28,8 +28,8 @@ RUN composer install --optimize-autoloader --no-dev
 # Permissions for Laravel
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-# Expose port 8000
+# Expose port (Docker formalities, actual PORT taken dynamically)
 EXPOSE 8000
 
-# Start Laravel server
-CMD php artisan serve --host=0.0.0.0 --port=8000
+# Start Laravel server dynamically on Railway PORT
+CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
