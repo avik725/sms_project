@@ -22,6 +22,10 @@ WORKDIR /var/www
 # Copy all files
 COPY . .
 
+# Copy .env file
+COPY .env .env
+
+
 # Install PHP dependencies
 RUN composer install --optimize-autoloader --no-dev
 
