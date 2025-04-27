@@ -22,9 +22,6 @@ WORKDIR /var/www
 # Copy all files
 COPY . .
 
-# Copy .env file
-COPY .env .env
-
 
 # Install PHP dependencies
 RUN composer install --optimize-autoloader --no-dev
@@ -34,11 +31,6 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 # Expose port (Docker formalities, actual PORT taken dynamically)
 EXPOSE 8000
-
-RUN php artisan config:clear && \
-    php artisan cache:clear && \
-    php artisan route:clear && \
-    php artisan view:clear
  
 # Start Laravel server dynamically on Railway PORT
 CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
