@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  @include('Admin/common/header-link')
+  @include('admin/common/header-link')
 </head>
 
 <body>
@@ -24,13 +24,13 @@
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
 
-    @include('Admin/common/sidebar')
+    @include('admin/common/sidebar')
 
     <!--  Main wrapper -->
     <div class="body-wrapper">
       <!--  Header Start -->
 
-      @include('Admin/common/header')
+      @include('admin/common/header')
 
       <!--  Header End -->
       <div class="container-fluid">
@@ -96,7 +96,7 @@
     </div>
   </div>
 
-  @include('Admin/common/footer-link')
+  @include('admin/common/footer-link')
 </body>
 
 </html>
